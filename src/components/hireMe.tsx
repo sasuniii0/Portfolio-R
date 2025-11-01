@@ -1,4 +1,3 @@
-import React from "react";
 import resume from "../assets/CV - Sasuni  Wijerathne (1) (2).pdf"
 
 const HireMe = () => {

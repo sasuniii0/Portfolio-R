@@ -1,4 +1,3 @@
-import React from "react";
 import profilePic from "../assets/pic1.jpg";
 import resume from "../assets/CV - Sasuni  Wijerathne (1) (2).pdf"
 import { FaGithub, FaLinkedin, FaInstagram ,FaMedium} from "react-icons/fa";

@@ -1,4 +1,3 @@
-import React from "react";
 import { FaJava, FaPython, FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaDatabase, FaGitAlt, FaDocker } from "react-icons/fa";
 import { SiSpringboot, SiTailwindcss, SiJavascript, SiMongodb, SiMysql } from "react-icons/si";
 import { MdSchool } from "react-icons/md";
