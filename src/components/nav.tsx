@@ -8,14 +8,14 @@ const Navbar: React.FC = () => {
 
         <ul className="hidden md:flex space-x-8 text-gray-300 font-medium">
           <li><a href="#home" className="hover:text-green-500 transition">Home</a></li>
-          <li><a href="#portfolio" className="hover:text-green-500 transition">Portfolio</a></li>
-          <li><a href="#about" className="hover:text-green-500 transition">About Me</a></li>
           <li><a href="#blog" className="hover:text-green-500 transition">Blog</a></li>
-          <li><a href="#contact" className="hover:text-green-500 transition">Contact</a></li>
+          <li><a href="#about" className="hover:text-green-500 transition">About Me</a></li>
+          <li><a href="#projects" className="hover:text-green-500 transition">Projects</a></li>
+          <li><a href="#hireme" className="hover:text-green-500 transition">Contact</a></li>
         </ul>
 
         <a
-          href="#contact"
+          href="#hireme"
           className="hidden md:inline-block bg-green-500 text-white px-5 py-2 rounded-md font-medium hover:bg-green-600 transition"
         >
           Hire Me

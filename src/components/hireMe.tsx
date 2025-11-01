@@ -1,4 +1,5 @@
 import React from "react";
+import resume from "../assets/CV - Sasuni  Wijerathne (1) (2).pdf"
 
 const HireMe = () => {
   return (
@@ -15,7 +16,7 @@ const HireMe = () => {
         {/* Buttons */}
         <div className="flex flex-col md:flex-row justify-center gap-4 mb-12">
           <a
-            href="/resume.pdf"
+            href={resume}
             className="bg-green-500 px-6 py-3 rounded-md font-medium hover:bg-green-600 transition"
             target="_blank"
             rel="noopener noreferrer"
@@ -23,7 +24,7 @@ const HireMe = () => {
             Download Resume
           </a>
           <a
-            href="mailto:your.email@example.com"
+            href="mailto:sasuniwijerathne@gmail.com"
             className="border border-green-500 px-6 py-3 rounded-md font-medium text-green-500 hover:bg-green-500 hover:text-white transition"
           >
             Email Me
@@ -31,7 +32,14 @@ const HireMe = () => {
         </div>
 
         {/* Contact Form */}
-        <form className="bg-[#1A1A1A] p-8 rounded-lg shadow-lg max-w-2xl mx-auto flex flex-col gap-6">
+        <form
+            className="bg-[#1A1A1A] p-8 rounded-lg shadow-lg max-w-2xl mx-auto flex flex-col gap-6"
+            onSubmit={(e) => {
+            e.preventDefault(); // prevent page reload
+            alert("Message sent successfully!"); // show alert
+            (e.target as HTMLFormElement).reset(); // optional: reset form
+        }}
+        >
           <input
             type="text"
             placeholder="Your Name"

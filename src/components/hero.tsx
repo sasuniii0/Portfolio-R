@@ -1,4 +1,5 @@
 import React from "react";
+import resume from "../assets/CV - Sasuni  Wijerathne (1) (2).pdf"
 
 const Hero: React.FC = () => {
   return (
@@ -59,13 +60,15 @@ const Hero: React.FC = () => {
 
         <div className="mt-8 flex space-x-4 justify-center">
           <a
-            href="#contact"
+            href="#chireme"
             className="bg-green-500 px-6 py-3 rounded-md font-medium hover:bg-green-600 transition"
           >
             Hire Me
           </a>
           <a
-            href="/resume.pdf"
+            href={resume}
+            target="_blank"
+            rel="noopener noreferrer"
             className="border border-green-500 px-6 py-3 rounded-md font-medium text-green-500 hover:bg-green-500 hover:text-white transition"
           >
             Resume
