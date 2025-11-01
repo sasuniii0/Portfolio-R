@@ -7,6 +7,7 @@ import HireMe from './components/hireMe';
 import SkillsEducation from './components/skill';
 import BlogExploring from './components/blogs';
 import Footer from './components/footer';
+import Projects from './components/projects';
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
       <Hero />
       <AboutMe />
       <SkillsEducation />
+      <Projects />
       <BlogExploring/>
       <HireMe />
       <Footer/>
