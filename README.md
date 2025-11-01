@@ -1,73 +1,15 @@
-# React + TypeScript + Vite
+# Sasuni Wijerathne - Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository showcases the professional portfolio of **Sasuni Wijerathne**, a passionate Software Engineer with expertise in **AI, Machine Learning, Java, Spring Boot, Python**, and modern web development technologies. The portfolio demonstrates her technical skills, creative design sense, and professional projects, all implemented using **React** and **Tailwind CSS** for a modern, responsive, and interactive user experience.
 
-Currently, two official plugins are available:
+The portfolio highlights real-world projects, including **JavaFX applications, full-stack solutions, and AI-focused explorations**, providing insight into Sasuni's ability to solve complex problems, develop efficient systems, and create engaging UI/UX designs. It also features a blog section, social media integration, and a contact interface to connect with potential collaborators or employers.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The portfolio also demonstrates educational achievements, professional certifications, and ongoing exploration of **AI and Machine Learning**, reflecting Sasuni’s commitment to continuous learning and innovation in software engineering.
 
-## React Compiler
+This repository is ideal for recruiters, collaborators, and clients looking for a versatile software engineer capable of delivering high-quality solutions and creative projects. All projects are linked with GitHub repositories or live demos for easy access and evaluation.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Contact Information:**  
+- **Email:** sasuniwijerathne@gmail.com  
+- **Location:** Piliyandala, Sri Lanka  
+- **LinkedIn:** [Your LinkedIn](www.linkedin.com/in/sasuni-wijerathne-a3b517311)  
+- **GitHub:** [Your GitHub]([https://github.com/yourusername](https://github.com/sasuniii0))
