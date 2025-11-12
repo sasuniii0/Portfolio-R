@@ -1,6 +1,6 @@
-import profilePic from "../assets/pic1.jpg";
+import profilePic from "../assets/pic2.jpg";
 import resume from "../assets/CV - Sasuni  Wijerathne (1) (2).pdf"
-import { FaGithub, FaLinkedin, FaInstagram ,FaMedium} from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram ,FaMedium, FaFacebook} from "react-icons/fa";
 
 const AboutMe = () => {
   return (
@@ -46,17 +46,21 @@ const AboutMe = () => {
 
           {/* Social Icons */}
           <div className="mt-6 flex justify-center md:justify-start gap-6 text-2xl text-gray-300">
-            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
-              <FaGithub />
-            </a>
-            <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
+            
+            <a href="www.linkedin.com/in/sasuni-wijerathne-a3b517311" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
               <FaLinkedin />
             </a>
-            <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
+            <a href="https://github.com/sasuniii0" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
+              <FaGithub />
+            </a>
+            <a href="https://medium.com/@sasuniwijerathne" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
               <FaMedium />
             </a>
-            <a href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
+            <a href="https://www.instagram.com/sasunyyy.y?igsh=ZTNwanBtMWdwdzJk&utm_source=qr" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
               <FaInstagram />
+            </a>
+            <a href="https://www.facebook.com/share/1D7FnhajhP/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
+              <FaFacebook/>
             </a>
           </div>
         </div>

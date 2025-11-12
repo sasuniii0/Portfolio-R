@@ -1,4 +1,4 @@
-import { FaLinkedin, FaGithub, FaTwitter, FaMedium, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { FaLinkedin, FaGithub,FaInstagram,FaFacebook, FaMedium, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -12,17 +12,20 @@ const Footer = () => {
             Software Engineer | AI & ML Enthusiast | Blogger. Exploring technology to create efficient and innovative solutions.
           </p>
           <div className="flex gap-4 text-2xl mt-2">
-            <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
+            <a href="www.linkedin.com/in/sasuni-wijerathne-a3b517311" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
               <FaLinkedin />
             </a>
-            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
+            <a href="https://github.com/sasuniii0" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
               <FaGithub />
             </a>
-            <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
-              <FaTwitter />
-            </a>
-            <a href="https://medium.com/@yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
+            <a href="https://medium.com/@sasuniwijerathne" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
               <FaMedium />
+            </a>
+            <a href="https://www.instagram.com/sasunyyy.y?igsh=ZTNwanBtMWdwdzJk&utm_source=qr" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
+              <FaInstagram />
+            </a>
+            <a href="https://www.facebook.com/share/1D7FnhajhP/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition">
+              <FaFacebook/>
             </a>
           </div>
         </div>
@@ -43,9 +46,8 @@ const Footer = () => {
         <div>
           <h3 className="text-xl font-bold text-green-500 mb-3">Contact</h3>
           <ul className="flex flex-col gap-3 text-gray-400">
-            <li className="flex items-center gap-2"><FaEnvelope className="text-green-500" /> sasuni.email@example.com</li>
-            <li className="flex items-center gap-2"><FaPhoneAlt className="text-green-500" /> +94 7X XXX XXXX</li>
-            <li className="flex items-center gap-2"><FaMapMarkerAlt className="text-green-500" /> Panadura, Sri Lanka</li>
+            <li className="flex items-center gap-2"><FaEnvelope className="text-green-500" /> sasuniwijerathne@gmail.com</li>
+            <li className="flex items-center gap-2"><FaMapMarkerAlt className="text-green-500" /> Colombo, Sri Lanka</li>
           </ul>
         </div>
 

@@ -1,5 +1,5 @@
 import { FaJava, FaPython, FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaDatabase, FaGitAlt, FaDocker } from "react-icons/fa";
-import { SiSpringboot, SiTailwindcss, SiJavascript, SiMongodb, SiMysql } from "react-icons/si";
+import { SiSpringboot, SiTailwindcss, SiJavascript, SiMongodb } from "react-icons/si";
 import { MdSchool } from "react-icons/md";
 
 const SkillsEducation = () => {
