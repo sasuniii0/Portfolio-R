@@ -10,11 +10,11 @@ const projects = [
     video: "https://youtu.be/oEVcOOsodZY?si=R1SZXm24iPqlYay2",
   },
   {
-    title: " AI Reel Generator - VidSnapAI",
+    title: "AI Reel Generator - VidSnapAI",
     description:
       "AI-powered reel generator that transforms user-uploaded content into engaging short videos.",
     link: "https://github.com/sasuniii0/VidSnapAI",
-    video: "https://youtu.be/bkRM5XKMNbw?si=RJEn7h67Ix3NNqDm", 
+    video: "https://youtu.be/bkRM5XKMNbw?si=RJEn7h67Ix3NNqDm",
   },
   {
     title: "Complaint Management System",
@@ -31,35 +31,34 @@ const Projects: React.FC = () => {
       id="projects"
       className="max-w-6xl mx-auto py-20 px-6 md:px-10 bg-[#0D0D0D] text-white"
     >
-      <div className="text-center mb-12">
+      <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold text-green-500 mb-4">
           My Projects
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          A selection of projects I’ve worked on to enhance my skills in software
-          engineering, web development, and system design.
+          Explore some of my recent work in software development, AI, and web applications.
         </p>
       </div>
 
-      {/* Project Cards */}
-      <div className="flex flex-nowrap justify-center gap-8 overflow-x-auto py-4">
+      {/* Project Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => (
           <div
             key={index}
-            className="bg-[#1A1A1A] p-6 rounded-xl shadow-lg flex flex-col gap-4 min-w-[300px] max-w-sm hover:shadow-2xl transition-transform duration-300"
+            className="bg-[#1A1A1A] p-6 rounded-2xl shadow-lg flex flex-col gap-4 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-transform duration-300"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mb-2">
               <FaProjectDiagram className="text-green-500 text-3xl flex-shrink-0" />
               <h3 className="text-xl md:text-2xl font-bold">{project.title}</h3>
             </div>
-            <p className="text-gray-300">{project.description}</p>
+            <p className="text-gray-300 text-sm md:text-base">{project.description}</p>
 
-            <div className="mt-auto flex flex-col gap-2">
+            <div className="mt-auto flex flex-col gap-3">
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-green-500 text-black font-medium px-4 py-2 rounded-md hover:bg-green-600 transition"
+                className="flex items-center justify-center gap-2 bg-green-500 text-black font-medium px-4 py-2 rounded-lg hover:bg-green-600 transition"
               >
                 <FaGithub /> View on GitHub
               </a>
@@ -68,26 +67,26 @@ const Projects: React.FC = () => {
                 href={project.video}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-white text-black font-medium px-4 py-2 rounded-md hover:bg-gray-200 transition"
+                className="flex items-center justify-center gap-2 bg-white text-black font-medium px-4 py-2 rounded-lg hover:bg-gray-200 transition"
               >
-                <FaYoutube className="text-black-600" /> Watch Demo
+                <FaYoutube className="text-red-600" /> Watch Demo
               </a>
-
             </div>
           </div>
         ))}
       </div>
 
       {/* Explore More Button */}
-      <div className="text-center mt-12">
-        <a
-          href="https://github.com/sasuniii0"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-green-500 px-6 py-3 rounded-md font-medium hover:bg-green-600 transition"
-        >
-          Explore Latest Projects on GitHub
-        </a>
+      <div className="text-center mt-10">
+        {/* Explore More Message */}
+          <a
+            href="https://medium.com/sasuniii0"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-4 bg-green-500 px-6 py-3 rounded-md font-medium hover:bg-green-600 transition"
+          >
+            Explore All project on GitHub
+          </a>
       </div>
     </section>
   );

@@ -1,66 +1,97 @@
-import React from "react";
-import resume from "../assets/CV - Sasuni  Wijerathne (1) (2).pdf"
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
+import resume from "../assets/CV - Sasuni  Wijerathne (1) (2).pdf";
 
 const Hero: React.FC = () => {
+  const { scrollYProgress } = useScroll();
+  const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.9]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+
   return (
-    <section
+    <motion.section
       id="home"
+      style={{ scale, opacity }}
       className="min-h-screen flex flex-col justify-center items-center text-center bg-[#0D0D0D] text-white relative overflow-hidden"
     >
-      {/* Lively floating shapes — green & black aesthetic */}
-<div className="absolute top-20 left-16 w-6 h-6 bg-green-400 rounded-full opacity-80 animate-bounce shadow-[0_0_20px_#22c55e] hover:scale-125 transition-transform duration-500"></div>
+      {/* Background Glow Orbs */}
+      <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-green-400/20 blur-3xl rounded-full animate-pulse"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-green-700/30 blur-3xl rounded-full animate-float"></div>
 
-<div className="absolute top-1/3 right-12 w-10 h-10 bg-gray-900 rounded-xl opacity-70 animate-pulse shadow-[0_0_25px_#14532d] hover:rotate-12 hover:scale-110 transition-transform duration-500"></div>
+      {/* Floating Sparkles */}
+      {[...Array(15)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute bg-green-500/70 rounded-full animate-float"
+          style={{
+            width: `${Math.random() * 6 + 2}px`,
+            height: `${Math.random() * 6 + 2}px`,
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 4}s`,
+          }}
+        ></div>
+      ))}
 
-<div className="absolute bottom-1/4 left-1/3 w-12 h-12 bg-green-700 rounded-full opacity-80 animate-bounce shadow-[0_0_30px_#22c55e] hover:scale-125 transition-transform duration-500"></div>
+      <style>
+        {`
+        @keyframes float {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          50% { transform: translateY(-10px) translateX(5px); }
+        }
+        .animate-float {
+          animation: float 5s ease-in-out infinite;
+        }
+        `}
+      </style>
 
-<div className="absolute top-1/2 left-14 w-6 h-6 bg-gray-800 rounded-sm opacity-70 animate-pulse shadow-[0_0_20px_#16a34a] hover:scale-125 transition-transform duration-500"></div>
-
-<div className="absolute top-12 right-1/3 w-8 h-8 bg-green-300 rounded-full opacity-90 animate-bounce shadow-[0_0_25px_#22c55e] hover:scale-125 transition-transform duration-500"></div>
-
-<div className="absolute top-1/4 left-1/2 w-5 h-5 bg-gray-900 rounded-full opacity-60 animate-ping shadow-[0_0_20px_#14532d] hover:scale-120 transition-transform duration-500"></div>
-
-<div className="absolute top-1/5 left-1/4 w-5 h-5 bg-gray-900 rounded-full opacity-60 animate-ping shadow-[0_0_20px_#14532d] hover:scale-120 transition-transform duration-500"></div>
-
-<div className="absolute top-1/6 left-1/6 w-5 h-5 bg-gray-900 rounded-full opacity-60 animate-ping shadow-[0_0_20px_#14532d] hover:scale-120 transition-transform duration-500"></div>
-
-<div className="absolute bottom-1/6 left-2/3 w-7 h-7 bg-green-600 rounded-full opacity-75 animate-float shadow-[0_0_25px_#22c55e] hover:scale-115 transition-transform duration-500"></div>
-
-<div className="absolute top-1/3 left-2/5 w-8 h-8 bg-gray-800 rounded-full opacity-70 animate-float shadow-[0_0_20px_#14532d] hover:scale-115 transition-transform duration-500"></div>
-
-{/* Optional: add keyframes in your CSS for float effect */}
-<style>
-{`
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-.animate-float { animation: float 4s ease-in-out infinite; }
-
-@keyframes spin-slow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.animate-spin-slow { animation: spin-slow 10s linear infinite; }
-`}
-</style>
-
-
-      {/* Hero Content */}
-      <div className="z-10 mt-10 px-6">
+      <motion.div
+        className="z-10 mt-10 px-6"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
         <p className="uppercase tracking-widest text-gray-400 text-sm mb-2">
-            Software Engineer | Exploring the World of AI & ML | Blogger
-        </p>
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          Hello, I’m <span className="text-green-500">Sasuni Wijerathne</span>
-        </h1>
-        <p className="text-gray-400 text-lg max-w-xl mx-auto">
-            I’m passionate about crafting smart, efficient solutions and learning how AI and ML shape the future of technology.
+          <Typewriter
+            words={[
+              "Software Engineer",
+              "Exploring the World of AI & ML",
+              "Blogger & Tech Enthusiast",
+            ]}
+            loop
+            cursor
+            cursorStyle="|"
+            typeSpeed={60}
+            deleteSpeed={40}
+            delaySpeed={1200}
+          />
         </p>
 
-        <div className="mt-8 flex space-x-4 justify-center">
+        <motion.h1
+          className="text-4xl md:text-6xl font-bold mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+        >
+          Hello, I’m <span className="text-green-500">Sasuni Wijerathne</span>
+        </motion.h1>
+
+        <motion.p
+          className="text-gray-400 text-lg max-w-xl mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 1 }}
+        >
+          I’m passionate about crafting smart, efficient solutions and learning how AI and ML shape the future of technology.
+        </motion.p>
+
+        <motion.div
+          className="mt-8 flex space-x-4 justify-center"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.8 }}
+        >
           <a
-            href="#chireme"
+            href="#hireme"
             className="bg-green-500 px-6 py-3 rounded-md font-medium hover:bg-green-600 transition"
           >
             Hire Me
@@ -73,9 +104,9 @@ const Hero: React.FC = () => {
           >
             Resume
           </a>
-        </div>
-      </div>
-    </section>
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 };
 
