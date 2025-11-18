@@ -15,7 +15,7 @@ dist-ssr
 # .gitignore
 .env
 
-hireMe.tsx
+src\components\hireMe.tsx
 
 # Editor directories and files
 .vscode/*
