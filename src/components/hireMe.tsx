@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import resume from "../assets/CV - Sasuni  Wijerathne (1) (2).pdf";
 import.meta.env.VITE_SOMETHING
 
-const api = import.meta.env.REACT_APP_WEB3FORMS_KEY;
-
 
 const HireMe = () => {
   const [loading, setLoading] = useState(false);
@@ -16,7 +14,7 @@ const HireMe = () => {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    formData.append("access_key", api ); // Web3Forms key
+    formData.append("access_key", "ece9ddf5-1f42-4720-b07e-2f211bf60247" ); // Web3Forms key
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
