@@ -42,9 +42,9 @@ const BlogExploring: React.FC = () => {
   const latestArticles = articles.slice(0, 3);
 
   return (
-    <section className="max-w-6xl mx-auto flex flex-col justify-center items-center gap-8 py-20 px-6 md:px-10 bg-[#0D0D0D] text-white">
+    <section id="blog" className="max-w-6xl mx-auto flex flex-col justify-center items-center gap-8 py-20 px-6 md:px-10 bg-[#0D0D0D] text-white">
       {/* Header */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-12" >
         <h2 className="text-4xl md:text-5xl font-bold text-green-500 mb-4">
           Blog & Exploring
         </h2>
