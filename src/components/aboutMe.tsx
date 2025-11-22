@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const AboutMe = () => {
   return (
-    <section id="about" className="py-20 px-6 md:px-10 bg-[#1A1A1A] relative overflow-hidden">
+    <section id="about" className="pt-40 pb-20 px-6 md:px-10 bg-[#1A1A1A] relative overflow-hidden">
 
       {/* Background Animated Shapes */}
       <div className="absolute top-10 left-1/4 w-36 h-36 bg-green-500/20 rounded-full blur-3xl animate-float"></div>
@@ -60,7 +60,7 @@ const AboutMe = () => {
 
           {/* Buttons with hover scale */}
           <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.6, delay: 0.3 } } }} className="mt-6 flex justify-center md:justify-start gap-4">
-            <motion.a whileHover={{ scale: 1.05 }} href="#contact" className="bg-green-500 px-6 py-3 rounded-md font-medium hover:bg-green-600 transition">
+            <motion.a whileHover={{ scale: 1.05 }} href="#hireme" className="bg-green-500 px-6 py-3 rounded-md font-medium hover:bg-green-600 transition">
               Contact Me
             </motion.a>
             <motion.a whileHover={{ scale: 1.05 }} href={resume} className="border border-green-500 px-6 py-3 rounded-md font-medium text-green-500 hover:bg-green-500 hover:text-white transition">

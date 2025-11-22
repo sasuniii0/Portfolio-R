@@ -2,7 +2,7 @@ import { FaLinkedin, FaGithub,FaInstagram,FaFacebook, FaMedium, FaEnvelope, FaMa
 
 const Footer = () => {
   return (
-    <footer className="bg-gray text-gray-300 py-16">
+    <footer className="bg-gray text-gray-300 pt-16 pb-10">
       <div className="max-w-6xl mx-auto px-6 md:px-0 grid grid-cols-1 md:grid-cols-4 gap-8">
 
         {/* About / Logo */}
@@ -38,7 +38,7 @@ const Footer = () => {
             <li><a href="#about" className="hover:text-green-500 transition">About Me</a></li>
             <li><a href="#skills" className="hover:text-green-500 transition">Skills</a></li>
             <li><a href="#blog" className="hover:text-green-500 transition">Blog</a></li>
-            <li><a href="#contact" className="hover:text-green-500 transition">Contact</a></li>
+            <li><a href="#hireme" className="hover:text-green-500 transition">Contact</a></li>
           </ul>
         </div>
 

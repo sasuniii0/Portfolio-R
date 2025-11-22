@@ -7,13 +7,15 @@ const Navbar: React.FC = () => {
     <nav className="fixed top-0 left-0 w-full bg-[#0D0D0D]/90 backdrop-blur-md text-white z-50 shadow-md">
       <div className="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
         {/* Logo Icon */}
-        <a href="#home">
-          <img 
-            src={logo} 
-            alt="Sasuni Logo" 
-            className="w-10 h-10" 
+        <a 
+        href="#home">
+          <img
+            src={logo}
+            alt="Sasuni Logo"
+            className="w-10 h-10 transition duration-300 hover:filter hover:brightness-0 hover:invert hover:hue-rotate-90"
           />
         </a>
+
 
 
         <ul className="hidden md:flex space-x-8 text-gray-300 font-medium">

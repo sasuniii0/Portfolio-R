@@ -29,7 +29,7 @@ const Projects: React.FC = () => {
   return (
     <section
       id="projects"
-      className="max-w-6xl mx-auto py-20 px-6 md:px-10 bg-[#0D0D0D] text-white"
+      className="max-w-6xl mx-auto pt-30 pb-10 px-6 md:px-10 bg-[#0D0D0D] text-white"
     >
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold text-green-500 mb-4">
@@ -80,7 +80,7 @@ const Projects: React.FC = () => {
       <div className="text-center mt-10">
         {/* Explore More Message */}
           <a
-            href="https://medium.com/sasuniii0"
+            href="https://github.com/sasuniii0"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block mt-4 bg-green-500 px-6 py-3 rounded-md font-medium hover:bg-green-600 transition"

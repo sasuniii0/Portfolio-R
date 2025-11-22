@@ -91,10 +91,10 @@ const Hero: React.FC = () => {
           transition={{ delay: 1, duration: 0.8 }}
         >
           <a
-            href="#hireme"
+            href="#about"
             className="bg-green-500 px-6 py-3 rounded-md font-medium hover:bg-green-600 transition"
           >
-            Hire Me
+            Meet Sasuni
           </a>
           <a
             href={resume}
