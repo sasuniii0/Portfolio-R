@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import resume from "../assets/CV - Sasuni  Wijerathne (1) (2).pdf";
+import resume from "../assets/Sasuni-WijerathneCV1-pic (1).pdf";
 import.meta.env.VITE_SOMETHING
 import { FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 

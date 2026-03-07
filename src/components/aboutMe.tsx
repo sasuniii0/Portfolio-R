@@ -1,4 +1,4 @@
-import profilePic from "../assets/pic2.jpg";
+import profilePic from "../assets/profilepic.png";
 import resume from "../assets/CV - Sasuni  Wijerathne (1) (2).pdf";
 import { FaGithub, FaLinkedin, FaInstagram, FaMedium, FaFacebook } from "react-icons/fa";
 import { motion } from "framer-motion";

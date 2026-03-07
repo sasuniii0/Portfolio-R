@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
-import resume from "../assets/CV - Sasuni  Wijerathne (1) (2).pdf";
+import resume from "../assets/Sasuni-WijerathneCV1-pic (1).pdf";
 
 const Hero: React.FC = () => {
   const { scrollYProgress } = useScroll();
