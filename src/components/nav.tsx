@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "../assets/favicon.png";
+import logo from "../assets/favicon-B65GwPu0.png";
 
 const navLinks = [
   { label: "Home",     href: "#home" },
