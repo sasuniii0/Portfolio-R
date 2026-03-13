@@ -18,7 +18,7 @@ import {
 } from "react-icons/hi";
 import { RiMedalLine, RiQuillPenLine, RiTeamLine } from "react-icons/ri";
 import iit from "../assets/iit.jpg";
-import kodekamp from "../assets/kodekloud.png";
+import kodekamp from "../assets/kodecloud.jpg";
 import ibm from "../assets/ibm.png";
 
 /* ══════════════════════════════════════════════
