@@ -260,7 +260,7 @@ const Hero: React.FC = () => {
             Hello, I'm
           </motion.p>
 
-          <h1 className="text-5xl md:text-7xl font-black leading-none select-none whitespace-nowrap"
+          <h1 className="text-3xl text-5xl md:text-7xl font-black leading-none select-none whitespace-nowrap"
             style={{ fontFamily: "'Syne', sans-serif", letterSpacing: "-0.03em" }}>
             {name.split("").map((ch, i) => (
               <motion.span
