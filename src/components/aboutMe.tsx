@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import profilePic from "../assets/profilepic.png";
+import profilePic from "../assets/profile.jpg";
 import resume from "../assets/SasuniWIjerathne_CV (3).pdf";
 import { FaGithub, FaLinkedin, FaInstagram, FaMedium, FaFacebook } from "react-icons/fa";
 
