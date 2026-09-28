@@ -1,333 +1,211 @@
-import { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import { Typewriter } from "react-simple-typewriter";
-import resume from "../assets/SasuniWIjerathne_CV (3).pdf";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { HiArrowRight } from "react-icons/hi2";
+import {
+  RiInboxLine, RiStackLine, RiQuillPenLine, RiCodeSSlashLine, RiAwardLine,
+} from "react-icons/ri";
 
-/* ── seeded stable particles (no hydration flicker) ── */
-const SPARKS = Array.from({ length: 40 }, (_, i) => {
-  const s = (n: number) => { const x = Math.sin(n) * 43758.5453; return x - Math.floor(x); };
-  return {
-    id: i,
-    top:   s(i * 7  + 1) * 100,
-    left:  s(i * 13 + 3) * 100,
-    size:  1.5 + s(i * 17 + 5) * 4,
-    dur:   4   + s(i * 11 + 2) * 6,
-    delay: s(i * 19 + 7) * 5,
-    opacity: 0.15 + s(i * 23 + 9) * 0.55,
-  };
-});
+/* ══════════════════════════════════════════════
+   STATUS ICONS (Linear-style)
+══════════════════════════════════════════════ */
+type Status = "done" | "progress" | "todo";
 
-/* ── mouse-tracked magnetic button ── */
-const MagneticBtn: React.FC<{
-  href: string; children: React.ReactNode; primary?: boolean;
-  target?: string; rel?: string;
-}> = ({ href, children, primary, target, rel }) => {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const x = useMotionValue(0), y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 300, damping: 22 });
-  const sy = useSpring(y, { stiffness: 300, damping: 22 });
-
-  const onMove = (e: React.MouseEvent) => {
-    const el = ref.current; if (!el) return;
-    const r = el.getBoundingClientRect();
-    x.set((e.clientX - r.left - r.width  / 2) * 0.35);
-    y.set((e.clientY - r.top  - r.height / 2) * 0.35);
-  };
-  const onLeave = () => { x.set(0); y.set(0); };
-
+const StatusIcon: React.FC<{ status: Status }> = ({ status }) => {
+  if (status === "done") return (
+    <svg width="14" height="14" viewBox="0 0 14 14" aria-label="Done">
+      <circle cx="7" cy="7" r="6" fill="var(--accent)" />
+      <path d="M4.5 7.2l1.7 1.7 3.3-3.4" stroke="#fff" strokeWidth="1.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+  if (status === "progress") return (
+    <svg width="14" height="14" viewBox="0 0 14 14" aria-label="In progress">
+      <circle cx="7" cy="7" r="5.5" stroke="var(--yellow)" strokeWidth="1.5" fill="none" />
+      <path d="M7 3.5a3.5 3.5 0 0 1 0 7z" fill="var(--yellow)" />
+    </svg>
+  );
   return (
-    <motion.a
-      ref={ref} href={href} target={target} rel={rel}
-      onMouseMove={onMove} onMouseLeave={onLeave}
-      whileTap={{ scale: 0.95 }}
-      className={`relative overflow-hidden group px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wider transition-colors duration-300 ${
-        primary
-          ? "bg-green-500 text-black hover:bg-green-400"
-          : "border text-green-400 hover:text-white"
-      }`}
-      style={{
-        x: sx, y: sy,
-        fontFamily: "'DM Mono', monospace",
-        ...(primary ? {} : { borderColor: "rgba(34,197,94,0.35)" }),
-      }}
-    >
-      {primary && (
-        <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-0 bg-green-300 transition-transform duration-300 rounded-xl" />
-      )}
-      <span className="relative z-10">{children}</span>
-    </motion.a>
+    <svg width="14" height="14" viewBox="0 0 14 14" aria-label="Todo">
+      <circle cx="7" cy="7" r="5.5" stroke="var(--text-4)" strokeWidth="1.5" fill="none" strokeDasharray="2 2" />
+    </svg>
   );
 };
+
+const PriorityIcon: React.FC<{ level: number }> = ({ level }) => (
+  <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden>
+    {[0, 1, 2].map(i => (
+      <rect key={i} x={2 + i * 4} y={9 - i * 3} width="2.5" height={3 + i * 3} rx="0.8"
+        fill={i < level ? "var(--text-2)" : "var(--text-4)"} opacity={i < level ? 1 : 0.5} />
+    ))}
+  </svg>
+);
+
+/* ══════════════════════════════════════════════
+   WORKSPACE DATA
+══════════════════════════════════════════════ */
+const ROWS: { id: string; title: string; status: Status; label: string; labelColor: string; date: string; priority: number }[] = [
+  { id: "SAS-14", title: "Software Engineer Intern — PayMedia",                status: "progress", label: "Fintech",  labelColor: "#4cb782", date: "Now",   priority: 3 },
+  { id: "SAS-13", title: "Certified AI & ML Engineer (CAME) program",           status: "progress", label: "AI/ML",    labelColor: "#7170ff", date: "2025",  priority: 3 },
+  { id: "SAS-12", title: "StayCloud — cloud-native microservices on GCP",       status: "done",     label: "Cloud",    labelColor: "#26b5ce", date: "2026",  priority: 3 },
+  { id: "SAS-11", title: "Secure login — OTP auth + AES-256 vault",             status: "done",     label: "Security", labelColor: "#f2994a", date: "2026",  priority: 3 },
+  { id: "SAS-10", title: "FairVision — bias-audited CNN age classifier",        status: "done",     label: "AI/ML",    labelColor: "#7170ff", date: "2026",  priority: 2 },
+  { id: "SAS-09", title: "VeloStream — event-driven streaming backend",         status: "done",     label: "Backend",  labelColor: "#5e6ad2", date: "2026",  priority: 2 },
+  { id: "SAS-08", title: "Secretary — IJSE Student Committee",                 status: "progress", label: "Lead",     labelColor: "#bb87fc", date: "2026",  priority: 2 },
+  { id: "SAS-07", title: "GENESYS Hackathon — 1st place, Team CodeHub",          status: "done",     label: "Award",    labelColor: "#f2c94c", date: "2024",  priority: 3 },
+];
+
+const SIDEBAR = [
+  { icon: <RiInboxLine />,      label: "Inbox" },
+  { icon: <RiStackLine />,      label: "My work", active: true },
+  { icon: <RiCodeSSlashLine />, label: "Projects" },
+  { icon: <RiQuillPenLine />,   label: "Writing" },
+  { icon: <RiAwardLine />,      label: "Awards" },
+];
+
+/* ══════════════════════════════════════════════
+   APP WINDOW MOCK
+══════════════════════════════════════════════ */
+const Workspace: React.FC = () => (
+  <div className="rounded-xl overflow-hidden text-left"
+    style={{
+      background: "var(--bg-elevated)",
+      border: "1px solid var(--border-strong)",
+      boxShadow: "0 0 0 1px rgba(0,0,0,0.6), 0 40px 120px -20px rgba(0,0,0,0.9), 0 0 80px -20px rgba(113,112,255,0.25)",
+    }}>
+    {/* title bar */}
+    <div className="flex items-center gap-2 px-4 h-10" style={{ borderBottom: "1px solid var(--border)" }}>
+      {["#ff5f57", "#febc2e", "#28c840"].map(c => (
+        <span key={c} className="w-2.5 h-2.5 rounded-full" style={{ background: c, opacity: 0.8 }} />
+      ))}
+      <span className="ml-3 text-xs" style={{ color: "var(--text-4)" }}>sasuni.me / my-work</span>
+    </div>
+
+    <div className="flex">
+      {/* sidebar */}
+      <aside className="hidden md:flex flex-col gap-0.5 w-48 shrink-0 p-3" style={{ borderRight: "1px solid var(--border)" }}>
+        <div className="flex items-center gap-2 px-2 py-1.5 mb-2">
+          <span className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-semibold"
+            style={{ background: "var(--accent)", color: "#fff" }}>S</span>
+          <span className="text-[13px] font-medium" style={{ color: "var(--text-1)" }}>Sasuni</span>
+        </div>
+        {SIDEBAR.map(item => (
+          <div key={item.label}
+            className="flex items-center gap-2.5 px-2 py-1.5 rounded-md text-[13px]"
+            style={{
+              color: item.active ? "var(--text-1)" : "var(--text-3)",
+              background: item.active ? "rgba(255,255,255,0.06)" : "transparent",
+            }}>
+            <span className="text-[15px]">{item.icon}</span>
+            {item.label}
+          </div>
+        ))}
+      </aside>
+
+      {/* issue list */}
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center justify-between px-4 h-11" style={{ borderBottom: "1px solid var(--border)" }}>
+          <div className="flex items-center gap-2 text-[13px]">
+            <span style={{ color: "var(--text-1)" }}>My work</span>
+            <span style={{ color: "var(--text-4)" }}>·</span>
+            <span style={{ color: "var(--text-3)" }}>{ROWS.length} items</span>
+          </div>
+          <div className="hidden sm:flex items-center gap-1.5 text-[11px]" style={{ color: "var(--text-4)" }}>
+            <span className="l-kbd">⌘</span><span className="l-kbd">K</span>
+          </div>
+        </div>
+
+        {ROWS.map((row, i) => (
+          <motion.div
+            key={row.id}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.9 + i * 0.05, duration: 0.4 }}
+            className="flex items-center gap-3 px-4 h-11 text-[13px]"
+            style={{ borderBottom: i < ROWS.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}
+          >
+            <span className="hidden sm:inline"><PriorityIcon level={row.priority} /></span>
+            <span className="l-mono text-[11.5px] w-12 shrink-0 hidden sm:inline" style={{ color: "var(--text-4)" }}>{row.id}</span>
+            <StatusIcon status={row.status} />
+            <span className="truncate flex-1" style={{ color: "var(--text-2)" }}>{row.title}</span>
+            <span className="l-pill hidden sm:inline-flex !h-[22px] !text-[11.5px]">
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: row.labelColor }} />
+              {row.label}
+            </span>
+            <span className="text-[12px] w-14 text-right shrink-0 hidden md:inline" style={{ color: "var(--text-4)" }}>{row.date}</span>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
 
 /* ══════════════════════════════════════════════
    MAIN HERO
 ══════════════════════════════════════════════ */
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 20, filter: "blur(8px)" },
+  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+  transition: { duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] as const },
+});
+
 const Hero: React.FC = () => {
-  const { scrollYProgress } = useScroll();
-  const yParallax = useTransform(scrollYProgress, [0, 0.4], [0, -120]);
-  const fadeOut   = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
-
-  /* mouse parallax layers */
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const smx = useSpring(mouseX, { stiffness: 60, damping: 18 });
-  const smy = useSpring(mouseY, { stiffness: 60, damping: 18 });
-  const layer1x = useTransform(smx, v => v * 0.02);
-  const layer1y = useTransform(smy, v => v * 0.02);
-  const layer2x = useTransform(smx, v => v * -0.035);
-  const layer2y = useTransform(smy, v => v * -0.035);
-  const layer3x = useTransform(smx, v => v * 0.055);
-  const layer3y = useTransform(smy, v => v * 0.055);
-
-  const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const { innerWidth: W, innerHeight: H } = window;
-    mouseX.set(e.clientX - W / 2);
-    mouseY.set(e.clientY - H / 2);
-  };
-
-  /* canvas star-field */
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = canvasRef.current; if (!canvas) return;
-    const ctx = canvas.getContext("2d")!;
-    let W = canvas.width  = window.innerWidth;
-    let H = canvas.height = window.innerHeight;
-    const resize = () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; };
-    window.addEventListener("resize", resize);
-
-    const stars = Array.from({ length: 120 }, (_, i) => {
-      const s = (n: number) => { const x = Math.sin(n) * 43758.5; return x - Math.floor(x); };
-      return { x: s(i * 7) * W, y: s(i * 13) * H, r: 0.4 + s(i * 17) * 1.2, speed: 0.08 + s(i * 23) * 0.18, alpha: 0.1 + s(i * 31) * 0.4 };
-    });
-
-    let raf: number;
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H);
-      stars.forEach(s => {
-        s.y += s.speed;
-        if (s.y > H) s.y = 0;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(34,197,94,${s.alpha})`;
-        ctx.fill();
-      });
-      raf = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
-  }, []);
-
-  /* letter split for heading */
-  const name = "Sasuni Wijerathne";
+  const shotRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: shotRef, offset: ["start end", "start 20%"] });
+  const rotateX = useTransform(scrollYProgress, [0, 1], [18, 0]);
+  const scale   = useTransform(scrollYProgress, [0, 1], [0.94, 1]);
 
   return (
-    <motion.section
-      id="home"
-      onMouseMove={onMouseMove}
-      style={{ opacity: fadeOut }}
-      className="relative min-h-screen flex flex-col justify-center items-center text-center bg-[#0D0D0D] text-white overflow-hidden"
-    >
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap');
+    <section id="home" className="relative overflow-hidden pt-36 md:pt-44 pb-24">
+      <div className="l-hero-glow" />
+      <div className="l-fade-grid" />
 
-        @keyframes floatSpark {
-          0%,100% { transform: translateY(0)     scale(1);   opacity: var(--op); }
-          50%      { transform: translateY(-18px) scale(1.4); opacity: calc(var(--op) * 1.6); }
-        }
-        @keyframes rotateRing {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
-        @keyframes rotateRingRev {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(-360deg); }
-        }
-        @keyframes pulseGlow {
-          0%,100% { box-shadow: 0 0 40px rgba(34,197,94,0.15), 0 0 80px rgba(34,197,94,0.05); }
-          50%      { box-shadow: 0 0 70px rgba(34,197,94,0.30), 0 0 140px rgba(34,197,94,0.12); }
-        }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-        .cursor-blink { animation: blink 1s step-end infinite; }
-        .hero-glow    { animation: pulseGlow 4s ease-in-out infinite; }
-      `}</style>
+      <div className="l-container relative flex flex-col items-center text-center">
 
-      {/* ── star-field canvas ── */}
-      <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none" />
+        {/* announcement pill */}
+        <motion.a href="#experience" {...fadeUp(0.1)}
+          className="l-pill !h-8 !px-3.5 !text-[13px] mb-8 transition-colors hover:!border-[var(--border-strong)]">
+          <span className="l-status-dot !w-1.5 !h-1.5" />
+          <span style={{ color: "var(--text-3)" }}>Now</span>
+          <span style={{ color: "var(--text-2)" }}>Software Engineer Intern at PayMedia</span>
+          <HiArrowRight style={{ color: "var(--text-3)" }} />
+        </motion.a>
 
-      {/* ── BG grid ── */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(rgba(34,197,94,1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(34,197,94,1) 1px, transparent 1px)`,
-          backgroundSize: "80px 80px",
-        }} />
+        <motion.h1 {...fadeUp(0.2)} className="l-display l-gradient-text max-w-4xl">
+          From idea to production,<br className="hidden sm:block" /> built with care.
+        </motion.h1>
 
-      {/* ── parallax blobs ── */}
-      <motion.div
-        style={{ x: layer1x, y: layer1y, background: "radial-gradient(circle, rgba(34,197,94,0.12) 0%, transparent 70%)" }}
-        className="absolute top-1/4 left-1/5 w-96 h-96 rounded-full pointer-events-none blur-3xl"
-        animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        style={{ x: layer2x, y: layer2y, background: "radial-gradient(circle, rgba(34,197,94,0.09) 0%, transparent 70%)" }}
-        className="absolute bottom-1/4 right-1/5 w-80 h-80 rounded-full pointer-events-none blur-3xl"
-        animate={{ scale: [1.1, 1, 1.1] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        style={{ x: layer3x, y: layer3y, background: "radial-gradient(circle, rgba(34,197,94,0.07) 0%, transparent 70%)" }}
-        className="absolute top-2/3 left-2/3 w-48 h-48 rounded-full pointer-events-none blur-2xl"
-        animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* ── floating sparkles ── */}
-      {SPARKS.map(p => (
-        <div key={p.id} className="absolute rounded-full pointer-events-none"
-          style={{
-            top: `${p.top}%`, left: `${p.left}%`,
-            width: p.size, height: p.size,
-            background: "rgba(34,197,94,0.7)",
-            "--op": p.opacity,
-            animation: `floatSpark ${p.dur}s ease-in-out ${p.delay}s infinite`,
-          } as React.CSSProperties}
-        />
-      ))}
-
-      {/* ── corner brackets ── */}
-      {[
-        "top-8 left-8 border-t border-l",
-        "top-8 right-8 border-t border-r",
-        "bottom-8 left-8 border-b border-l",
-        "bottom-8 right-8 border-b border-r",
-      ].map((cls, i) => (
-        <motion.div key={i}
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.8 + i * 0.1, duration: 0.5 }}
-          className={`absolute w-8 h-8 border-green-500/25 pointer-events-none ${cls}`}
-        />
-      ))}
-
-      {/* ── decorative orbit rings ── */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[560px] h-[560px] rounded-full border border-green-500/[0.04]"
-          style={{ animation: "rotateRing 40s linear infinite" }}>
-          <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-green-500/40"
-            style={{ boxShadow: "0 0 10px #22c55e" }} />
-        </div>
-      </div>
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[420px] h-[420px] rounded-full border border-green-500/[0.06]"
-          style={{ animation: "rotateRingRev 28s linear infinite" }}>
-          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-green-400/50" />
-        </div>
-      </div>
-
-      {/* ══════════ MAIN CONTENT ══════════ */}
-      <motion.div
-        className="relative z-10 flex flex-col items-center gap-5 px-6 max-w-4xl"
-        style={{ y: yParallax }}
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-      >
-
-        {/* Typewriter label */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex items-center gap-2"
-        >
-          <span className="text-green-500/40 text-xs" style={{ fontFamily: "'DM Mono', monospace" }}>&gt;_</span>
-          <span className="text-xs tracking-[0.3em] text-green-400/60 uppercase"
-            style={{ fontFamily: "'DM Mono', monospace" }}>
-            <Typewriter
-              words={["Software Engineer", "AI & ML Enthusiast", "Cloud Explorer", "Tech Blogger"]}
-              loop cursor cursorStyle="|" typeSpeed={65} deleteSpeed={40} delaySpeed={1400}
-            />
-          </span>
-        </motion.div>
-
-        {/* Main heading — letter-by-letter entrance */}
-        <div className="flex flex-col items-center gap-0">
-          <motion.p
-            initial={{ opacity: 0, letterSpacing: "0.5em" }}
-            animate={{ opacity: 1, letterSpacing: "-0.01em" }}
-            transition={{ delay: 0.4, duration: 0.9, ease: "easeOut" }}
-            className="text-white/30 text-sm tracking-[0.5em] uppercase mb-1"
-            style={{ fontFamily: "'DM Mono', monospace" }}
-          >
-            Hello, I'm
-          </motion.p>
-
-          <h1 className="text-3xl text-5xl md:text-7xl font-black leading-none select-none whitespace-nowrap"
-            style={{ fontFamily: "'Syne', sans-serif", letterSpacing: "-0.03em" }}>
-            {name.split("").map((ch, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 40, rotateX: -90 }}
-                animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                transition={{ delay: 0.5 + i * 0.035, duration: 0.5, type: "spring", stiffness: 200 }}
-                className={`inline-block ${ch === " " ? "mr-4" : ""} hover:text-green-400 transition-colors duration-200 cursor-default`}
-                style={{ transformOrigin: "50% 100%" }}
-              >
-                {ch === " " ? "\u00A0" : ch}
-              </motion.span>
-            ))}
-          </h1>
-
-          {/* Underline draw */}
-          <motion.div
-            className="h-[2px] bg-green-500/60 rounded-full mt-2"
-            initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ delay: 1.4, duration: 0.8, ease: "easeOut" }}
-          />
-        </div>
-
-        {/* Sub text */}
-        <motion.p
-          className="text-white/40 text-base md:text-lg max-w-xl leading-relaxed"
-          style={{ fontFamily: "'DM Mono', monospace" }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-        >
-          Crafting intelligent, scalable systems — one commit at a time.
-          <span className="cursor-blink text-green-500 ml-1">|</span>
+        <motion.p {...fadeUp(0.35)} className="l-lead mt-6 max-w-xl">
+          I'm <span style={{ color: "var(--text-1)" }}>Sasuni Wijerathne</span>, a software engineer
+          interning at <span style={{ color: "var(--text-1)" }}>PayMedia</span>. I build secure,
+          cloud-native systems across the stack from Spring microservices to AI/ML.
         </motion.p>
 
-        {/* CTA buttons */}
+        <motion.div {...fadeUp(0.5)} className="flex flex-wrap items-center justify-center gap-3 mt-10">
+          <a href="#projects" className="l-btn l-btn-primary">
+            View my work <HiArrowRight />
+          </a>
+          <a href="#hireme" className="l-btn l-btn-secondary">
+            Get in touch
+          </a>
+        </motion.div>
+
+        {/* product-shot style workspace */}
         <motion.div
-          className="flex flex-wrap gap-4 justify-center mt-2"
-          initial={{ opacity: 0, y: 20 }}
+          ref={shotRef}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.7 }}
+          transition={{ duration: 1.1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="relative w-full mt-20 md:mt-24"
+          style={{ perspective: 1600 }}
         >
-          <MagneticBtn href="#about" primary>Meet Sasuni →</MagneticBtn>
-          <MagneticBtn href={resume} target="_blank" rel="noopener noreferrer">Resume ↗</MagneticBtn>
+          <motion.div style={{ rotateX, scale, transformOrigin: "50% 0%" }}>
+            <Workspace />
+          </motion.div>
+          {/* bottom fade into page */}
+          <div className="absolute inset-x-0 bottom-0 h-40 pointer-events-none"
+            style={{ background: "linear-gradient(to bottom, transparent, var(--bg))" }} />
         </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-[-120px] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-        >
-          <span className="text-[10px] tracking-[0.4em] text-white/20 uppercase"
-            style={{ fontFamily: "'DM Mono', monospace" }}>scroll</span>
-          <div className="w-5 h-8 rounded-full border border-white/10 flex items-start justify-center p-1">
-            <motion.div
-              className="w-1 h-1.5 bg-green-500 rounded-full"
-              animate={{ y: [0, 14, 0] }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </div>
-        </motion.div>
-
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 };
 

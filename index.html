@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Primary SEO -->
@@ -23,79 +22,41 @@
     <meta name="twitter:image" content="/favicon-192.png" /> <!-- Replace with your image -->
 
     <!-- Favicon -->
-    <link rel="icon" href="./src/assets/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
-    <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta name="theme-color" content="#08090a" />
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+      body { background: #08090a; margin: 0; }
 
-      body {
-        font-family: 'Roboto', sans-serif;
-        background: #000;
-      }
-
-       /* ===== Modern Loader Animation ===== */
-      #loader {
-        background: #000;
-      }
-
-      .loader-dots {
-        display: flex;
-        gap: 12px;
-      }
-
-      .loader-dot {
-        width: 14px;
-        height: 14px;
-        background: green;
+      /* ===== Loader ===== */
+      #loader { background: #08090a; transition: opacity 0.5s ease-out; }
+      .loader-ring {
+        width: 22px;
+        height: 22px;
         border-radius: 50%;
-        animation: pulse 0.8s infinite alternate ease-in-out;
-        filter: drop-shadow(0 0 6px #ffffff);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-top-color: #7170ff;
+        animation: loader-spin 0.7s linear infinite;
       }
-
-      .loader-dot:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-
-      .loader-dot:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-
-      @keyframes pulse {
-        0% { transform: scale(0.5); opacity: 0.4; }
-        100% { transform: scale(1.2); opacity: 1; }
-      }
-
-      /* Fade out effect */
-      #loader.fade-out {
-        opacity: 0;
-        transition: opacity 0.6s ease-out;
-        pointer-events: none;
-      }
-
+      @keyframes loader-spin { to { transform: rotate(360deg); } }
+      #loader.fade-out { opacity: 0; pointer-events: none; }
     </style>
-
-    <title>portfolio</title>
   </head>
   <body>
     <div id="root"></div>
 
-    <!-- ============== MODERN BLACK LOADING SCREEN ============== -->
+    <!-- ============== LOADING SCREEN ============== -->
     <div id="loader" class="fixed inset-0 flex items-center justify-center z-50">
-      <div class="loader-dots">
-        <div class="loader-dot"></div>
-        <div class="loader-dot"></div>
-        <div class="loader-dot"></div>
-      </div>
+      <div class="loader-ring"></div>
     </div>
-    <!-- <h1 class="text-3xl font-bold underline text-center justify-center">
-      Hello world!
-    </h1> -->
     <script type="module" src="/src/main.tsx"></script>
         <script type="text/javascript"
             src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
@@ -112,8 +73,8 @@
           const loader = document.getElementById("loader");
           setTimeout(() => {
             loader.classList.add("fade-out");
-            setTimeout(() => loader.remove(), 600);
-          }, 400);
+            setTimeout(() => loader.remove(), 500);
+          }, 200);
       });
     </script>
   </body>
