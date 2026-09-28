@@ -1,238 +1,156 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "../assets/favicon-B65GwPu0.png";
+const logo = "/favicon.svg";
+import resume from "../assets/SasuniWIjerathne_CV (3).pdf";
 
 const navLinks = [
-  { label: "Home",     href: "#home" },
-  { label: "Blog",     href: "#blog" },
-  { label: "About",    href: "#about" },
+  { label: "About",      href: "#about" },
+  { label: "Experience", href: "#experience" },
+  { label: "Services", href: "#services" },
+  { label: "Skills",   href: "#skills-education" },
   { label: "Projects", href: "#projects" },
-  { label: "Contact",  href: "#hireme" },
+  { label: "Blog",     href: "#blog" },
 ];
 
 const Navbar: React.FC = () => {
-  const [scrolled,    setScrolled]    = useState(false);
-  const [activeLink,  setActiveLink]  = useState("Home");
-  const [menuOpen,    setMenuOpen]    = useState(false);
-  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [active,   setActive]   = useState<string>("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // close mobile menu on resize
+  // highlight the link of the section currently in view
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth >= 768) setMenuOpen(false); };
+    const sections = navLinks
+      .map(l => document.querySelector(l.href))
+      .filter((el): el is Element => !!el);
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) setActive(`#${e.target.id}`); }),
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    sections.forEach(s => io.observe(s));
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth >= 1024) setMenuOpen(false); };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+  }, [menuOpen]);
+
   return (
-    <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&display=swap');
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-      `}</style>
+    <header
+      className="fixed top-0 left-0 w-full z-50 transition-colors duration-300"
+      style={{
+        background: scrolled || menuOpen ? "rgba(8,9,10,0.8)" : "transparent",
+        backdropFilter: scrolled || menuOpen ? "blur(20px) saturate(180%)" : "none",
+        WebkitBackdropFilter: scrolled || menuOpen ? "blur(20px) saturate(180%)" : "none",
+        borderBottom: `1px solid ${scrolled || menuOpen ? "var(--border)" : "transparent"}`,
+      }}
+    >
+      <nav className="l-container flex items-center justify-between h-16">
 
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, type: "spring", stiffness: 100, damping: 18 }}
-        className="fixed top-0 left-0 w-full z-50 transition-all duration-500"
-        style={{
-          background: scrolled
-            ? "rgba(13,13,13,0.92)"
-            : "rgba(13,13,13,0.6)",
-          backdropFilter: "blur(16px)",
-          borderBottom: scrolled
-            ? "1px solid rgba(34,197,94,0.12)"
-            : "1px solid transparent",
-          boxShadow: scrolled ? "0 4px 40px rgba(0,0,0,0.4)" : "none",
-        }}
-      >
-        <div className="max-w-6xl mx-auto flex items-center justify-between px-6 md:px-10 py-4">
+        {/* ── Logo ── */}
+        <a href="#home" className="flex items-center gap-2.5" onClick={() => setMenuOpen(false)}>
+          <img src={logo} alt="" className="w-6 h-6 rounded-md" />
+          <span className="text-[15px] font-semibold tracking-[-0.01em]" style={{ color: "var(--text-1)" }}>
+            Sasuni
+          </span>
+        </a>
 
-          {/* ── Logo ── */}
-          <motion.a
-            href="#home"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2.5 group"
-            onClick={() => setActiveLink("Home")}
-          >
-            <div className="relative">
-              {/* glow ring on hover */}
-              <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ boxShadow: "0 0 16px rgba(34,197,94,0.4)" }} />
-              <img src={logo} alt="Sasuni Logo"
-                className="w-9 h-9 relative z-10 transition-all duration-300"
-                style={{ filter: "brightness(1)" }}
-                onMouseEnter={e => (e.currentTarget.style.filter = "brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(90deg)")}
-                onMouseLeave={e => (e.currentTarget.style.filter = "brightness(1)")}
-              />
-            </div>
-            <div className="hidden sm:flex flex-col leading-none">
-              <span className="text-sm font-black text-white"
-                style={{ fontFamily: "'Syne', sans-serif", letterSpacing: "-0.01em" }}>
-                Sasuni
-              </span>
-              <span className="text-[10px] text-green-500/60 tracking-widest"
-                style={{ fontFamily: "'DM Mono', monospace" }}>
-                .dev
-              </span>
-            </div>
-          </motion.a>
+        {/* ── Desktop links ── */}
+        <ul className="hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+          {navLinks.map(link => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="px-3 py-1.5 rounded-lg text-[13.5px] transition-colors duration-150"
+                style={{ color: active === link.href ? "var(--text-1)" : "var(--text-3)" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "var(--text-1)")}
+                onMouseLeave={e => (e.currentTarget.style.color = active === link.href ? "var(--text-1)" : "var(--text-3)")}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
 
-          {/* ── Desktop nav ── */}
-          <ul className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  onClick={() => setActiveLink(link.label)}
-                  onMouseEnter={() => setHoveredLink(link.label)}
-                  onMouseLeave={() => setHoveredLink(null)}
-                  className="relative px-4 py-2 rounded-xl text-sm transition-colors duration-300 flex items-center"
-                  style={{
-                    fontFamily: "'DM Mono', monospace",
-                    color: activeLink === link.label
-                      ? "#4ade80"
-                      : hoveredLink === link.label
-                        ? "rgba(255,255,255,0.8)"
-                        : "rgba(255,255,255,0.35)",
-                  }}
-                >
-                  {/* active / hover bg pill */}
-                  {(activeLink === link.label || hoveredLink === link.label) && (
-                    <motion.div
-                      layoutId="navPill"
-                      className="absolute inset-0 rounded-xl"
-                      style={{
-                        background: activeLink === link.label
-                          ? "rgba(34,197,94,0.1)"
-                          : "rgba(255,255,255,0.04)",
-                        border: activeLink === link.label
-                          ? "1px solid rgba(34,197,94,0.2)"
-                          : "1px solid rgba(255,255,255,0.06)",
-                      }}
-                      transition={{ type: "spring", stiffness: 500, damping: 38 }}
-                    />
-                  )}
-
-                  <span className="relative z-10">{link.label}</span>
-
-                  {/* active dot */}
-                  {activeLink === link.label && (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="relative z-10 ml-1.5 w-1 h-1 rounded-full bg-green-400"
-                      style={{ boxShadow: "0 0 4px #4ade80", animation: "blink 2.5s ease-in-out infinite" }}
-                    />
-                  )}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          {/* ── Hire Me CTA ── */}
-          <div className="hidden md:flex items-center gap-3">
-            <motion.a
-              href="#hireme"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              className="relative overflow-hidden group px-5 py-2 rounded-xl text-sm font-semibold text-black bg-green-500 hover:bg-green-400 transition-colors duration-300"
-              style={{ fontFamily: "'DM Mono', monospace" }}
-            >
-              <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-0 bg-green-300 transition-transform duration-300 rounded-xl" />
-              <span className="relative z-10">Hire Me →</span>
-            </motion.a>
-          </div>
-
-          {/* ── Mobile hamburger ── */}
-          <button
-            className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 rounded-xl transition-all duration-300"
-            onClick={() => setMenuOpen(p => !p)}
-            style={{
-              background: menuOpen ? "rgba(34,197,94,0.1)" : "rgba(255,255,255,0.03)",
-              border: menuOpen ? "1px solid rgba(34,197,94,0.25)" : "1px solid rgba(255,255,255,0.07)",
-            }}
-            aria-label="Toggle menu"
-          >
-            {[0, 1, 2].map(i => (
-              <motion.span
-                key={i}
-                className="block h-px bg-white rounded-full"
-                animate={{
-                  width:   menuOpen && i === 1 ? "0%" : "60%",
-                  rotate:  menuOpen ? (i === 0 ? 45 : i === 2 ? -45 : 0) : 0,
-                  y:       menuOpen ? (i === 0 ? 6 : i === 2 ? -6 : 0) : 0,
-                  opacity: menuOpen && i === 1 ? 0 : 1,
-                  backgroundColor: menuOpen ? "#22c55e" : "rgba(255,255,255,0.7)",
-                }}
-                transition={{ duration: 0.25 }}
-                style={{ transformOrigin: "center" }}
-              />
-            ))}
-          </button>
+        {/* ── Desktop actions ── */}
+        <div className="hidden lg:flex items-center gap-2">
+          <a href={resume} target="_blank" rel="noopener noreferrer" className="l-btn l-btn-sm l-btn-ghost">
+            Resume
+          </a>
+          <a href="#hireme" className="l-btn l-btn-sm l-btn-primary">
+            Hire me
+          </a>
         </div>
 
-        {/* ── Mobile drawer ── */}
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden overflow-hidden"
-              style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
-            >
-              <div className="px-6 py-5 flex flex-col gap-1"
-                style={{ background: "rgba(13,13,13,0.97)" }}>
-                {navLinks.map((link, i) => (
-                  <motion.a
-                    key={link.label}
-                    href={link.href}
-                    initial={{ opacity: 0, x: -16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.06 }}
-                    onClick={() => { setActiveLink(link.label); setMenuOpen(false); }}
-                    className="flex items-center justify-between px-4 py-3 rounded-xl text-sm transition-all duration-300"
-                    style={{
-                      fontFamily: "'DM Mono', monospace",
-                      color: activeLink === link.label ? "#4ade80" : "rgba(255,255,255,0.4)",
-                      background: activeLink === link.label ? "rgba(34,197,94,0.08)" : "transparent",
-                      border: activeLink === link.label ? "1px solid rgba(34,197,94,0.15)" : "1px solid transparent",
-                    }}
-                  >
-                    <span>{link.label}</span>
-                    {activeLink === link.label && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-400"
-                        style={{ boxShadow: "0 0 4px #4ade80" }} />
-                    )}
-                  </motion.a>
-                ))}
+        {/* ── Mobile toggle ── */}
+        <button
+          className="lg:hidden relative w-9 h-9 flex items-center justify-center rounded-lg"
+          style={{ color: "var(--text-2)" }}
+          onClick={() => setMenuOpen(p => !p)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+        >
+          {[0, 1].map(i => (
+            <motion.span
+              key={i}
+              className="absolute block h-[1.5px] w-[18px] rounded-full bg-current"
+              animate={{
+                rotate: menuOpen ? (i === 0 ? 45 : -45) : 0,
+                y:      menuOpen ? 0 : (i === 0 ? -4 : 4),
+              }}
+              transition={{ duration: 0.2 }}
+            />
+          ))}
+        </button>
+      </nav>
 
+      {/* ── Mobile sheet ── */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden fixed inset-x-0 top-16 bottom-0"
+            style={{ background: "var(--bg)" }}
+          >
+            <div className="l-container flex flex-col pt-4">
+              {navLinks.map((link, i) => (
                 <motion.a
-                  href="#hireme"
-                  initial={{ opacity: 0, y: 10 }}
+                  key={link.href}
+                  href={link.href}
+                  initial={{ opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35 }}
+                  transition={{ delay: i * 0.04 }}
                   onClick={() => setMenuOpen(false)}
-                  className="mt-3 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold text-black bg-green-500"
-                  style={{ fontFamily: "'DM Mono', monospace" }}
+                  className="py-4 text-lg font-medium"
+                  style={{ color: "var(--text-1)", borderBottom: "1px solid var(--border)" }}
                 >
-                  Hire Me →
+                  {link.label}
                 </motion.a>
+              ))}
+              <div className="flex flex-col gap-3 mt-8">
+                <a href="#hireme" onClick={() => setMenuOpen(false)} className="l-btn l-btn-primary">Hire me</a>
+                <a href={resume} target="_blank" rel="noopener noreferrer" className="l-btn l-btn-secondary">Resume</a>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.nav>
-    </>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 };
 
