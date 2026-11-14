@@ -10,7 +10,7 @@ import {
   SiMysql, SiFirebase, SiPostman, SiFigma, SiSwagger,
   SiBootstrap, SiRedux, SiFlask, SiNginx, SiAngular,
   SiDotnet, SiRedis, SiSpring, SiPostgresql, SiRabbitmq, SiPytorch,
-  SiStreamlit, SiGooglecloud,
+  SiStreamlit, SiGooglecloud, SiApachekafka,
 } from "react-icons/si";
 import { VscAzure } from "react-icons/vsc";
 import { MdSchool, MdWorkspacePremium } from "react-icons/md";
@@ -53,14 +53,19 @@ const achievementList: EduItem[] = [
   { title: "Technical Writer on Medium", subtitle: "Published 10+ articles on AI, ML & software development", category: "Achievements", year: "2024–Present", icon: <RiQuillPenLine /> },
 ];
 
+const focus = [
+  "Java 21", "Spring Boot", "Microservices", "REST APIs", "PostgreSQL",
+  "Redis", "Kafka", "Spring Cloud", "React", "TypeScript", "Cloud & DevOps",
+];
+
 const skillCategories = [
-  { label: "Languages",      skills: [{ name: "Java", icon: <FaJava /> }, { name: "Python", icon: <FaPython /> }, { name: "JavaScript", icon: <SiJavascript /> }, { name: "TypeScript", icon: <SiTypescript /> }, { name: "SQL", icon: <FaDatabase /> }, { name: "HTML5", icon: <FaHtml5 /> }, { name: "CSS3", icon: <FaCss3Alt /> }] },
+  { label: "Languages",      skills: [{ name: "Java 21", icon: <FaJava /> }, { name: "Python", icon: <FaPython /> }, { name: "JavaScript", icon: <SiJavascript /> }, { name: "TypeScript", icon: <SiTypescript /> }, { name: "SQL", icon: <FaDatabase /> }, { name: "HTML5", icon: <FaHtml5 /> }, { name: "CSS3", icon: <FaCss3Alt /> }] },
+  { label: "Backend",        skills: [{ name: "Spring Boot", icon: <SiSpringboot /> }, { name: "Spring Cloud", icon: <SiSpring /> }, { name: "REST APIs", icon: <SiSwagger /> }, { name: "Kafka", icon: <SiApachekafka /> }, { name: "RabbitMQ", icon: <SiRabbitmq /> }, { name: "Node.js", icon: <FaNodeJs /> }, { name: "Express", icon: <SiExpress /> }, { name: "Flask", icon: <SiFlask /> }, { name: ".NET", icon: <SiDotnet /> }] },
+  { label: "Databases",      skills: [{ name: "PostgreSQL", icon: <SiPostgresql /> }, { name: "Redis", icon: <SiRedis /> }, { name: "MySQL", icon: <SiMysql /> }, { name: "MongoDB", icon: <SiMongodb /> }, { name: "Firebase", icon: <SiFirebase /> }] },
   { label: "Frontend",       skills: [{ name: "React.js", icon: <FaReact /> }, { name: "Next.js", icon: <SiNextdotjs /> }, { name: "Angular", icon: <SiAngular /> }, { name: "Redux", icon: <SiRedux /> }, { name: "Tailwind", icon: <SiTailwindcss /> }, { name: "Bootstrap", icon: <SiBootstrap /> }] },
-  { label: "Mobile",         skills: [{ name: "React Native", icon: <FaReact /> }, { name: "Expo", icon: <FaMobile /> }, { name: "Android", icon: <FaMobile /> }] },
-  { label: "Backend",        skills: [{ name: "Spring Boot", icon: <SiSpringboot /> }, { name: "Spring Cloud", icon: <SiSpring /> }, { name: ".NET", icon: <SiDotnet /> }, { name: "Node.js", icon: <FaNodeJs /> }, { name: "Express", icon: <SiExpress /> }, { name: "Flask", icon: <SiFlask /> }, { name: "RabbitMQ", icon: <SiRabbitmq /> }, { name: "REST APIs", icon: <SiSwagger /> }] },
-  { label: "Databases",      skills: [{ name: "MySQL", icon: <SiMysql /> }, { name: "PostgreSQL", icon: <SiPostgresql /> }, { name: "MongoDB", icon: <SiMongodb /> }, { name: "Redis", icon: <SiRedis /> }, { name: "Firebase", icon: <SiFirebase /> }] },
-  { label: "AI & ML",        skills: [{ name: "OpenAI API", icon: <BiBrain /> }, { name: "Google Gen AI", icon: <BiBrain /> }, { name: "Scikit-learn", icon: <BiBrain /> }, { name: "PyTorch", icon: <SiPytorch /> }, { name: "Streamlit", icon: <SiStreamlit /> }, { name: "Pandas", icon: <FaPython /> }, { name: "NumPy", icon: <FaPython /> }] },
   { label: "DevOps & Cloud", skills: [{ name: "Docker", icon: <FaDocker /> }, { name: "Kubernetes", icon: <SiKubernetes /> }, { name: "AWS", icon: <FaAws /> }, { name: "Google Cloud", icon: <SiGooglecloud /> }, { name: "Azure", icon: <VscAzure /> }, { name: "GitHub Actions", icon: <FaGitAlt /> }, { name: "Nginx", icon: <SiNginx /> }] },
+  { label: "Mobile",         skills: [{ name: "React Native", icon: <FaReact /> }, { name: "Expo", icon: <FaMobile /> }, { name: "Android", icon: <FaMobile /> }] },
+  { label: "AI & ML",        skills: [{ name: "OpenAI API", icon: <BiBrain /> }, { name: "Google Gen AI", icon: <BiBrain /> }, { name: "Scikit-learn", icon: <BiBrain /> }, { name: "PyTorch", icon: <SiPytorch /> }, { name: "Streamlit", icon: <SiStreamlit /> }, { name: "Pandas", icon: <FaPython /> }, { name: "NumPy", icon: <FaPython /> }] },
   { label: "Tools",          skills: [{ name: "Git", icon: <FaGitAlt /> }, { name: "Postman", icon: <SiPostman /> }, { name: "Figma", icon: <SiFigma /> }, { name: "Swagger", icon: <SiSwagger /> }] },
 ];
 
@@ -90,9 +95,21 @@ const SkillsEducation: React.FC = () => {
         <SectionHeader
           num="04"
           label="Skills & Education"
-          title={<>A toolkit for every<br className="hidden sm:block" /> layer of the stack.</>}
-          lead={`${totalSkills} technologies across ${skillCategories.length} disciplines — and 3+ years of learning, building and shipping.`}
+          title={<>Built around Java <span className="l-em">and Spring Boot.</span></>}
+          lead={`${totalSkills} tools across ${skillCategories.length} groups. Java and Spring Boot sit at the center, with data, interfaces, and delivery around them.`}
         />
+
+        <Reveal className="mb-8">
+          <p className="l-eyebrow mb-4">
+            <span className="l-eyebrow-num">Focus</span>
+            <span>Where the current work sits</span>
+          </p>
+          <ul className="flex flex-wrap gap-2" aria-label="Current technical focus">
+            {focus.map(name => (
+              <li key={name} className="l-pill !h-8 !px-3 !text-[13px]">{name}</li>
+            ))}
+          </ul>
+        </Reveal>
 
         {/* ── Tech stack grid ── */}
         <Reveal>
@@ -121,7 +138,7 @@ const SkillsEducation: React.FC = () => {
         {/* ── Journey ── */}
         <div className="mt-24 grid md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 md:gap-16">
           <Reveal>
-            <h3 className="text-2xl font-semibold tracking-[-0.02em] l-gradient-text">Journey</h3>
+            <h3 className="l-serif text-4xl tracking-[-0.02em]" style={{ color: "var(--text-1)" }}>Journey</h3>
             <p className="l-body mt-3 max-w-xs">
               Education, certifications and milestones that shaped how I build.
             </p>
@@ -158,7 +175,7 @@ const SkillsEducation: React.FC = () => {
               transition={{ duration: 0.25 }}
               className="flex flex-col" style={{ borderTop: "1px solid var(--border)" }}>
               {filteredItems.map(item => (
-                <li key={item.title} className="flex gap-4 py-5" style={{ borderBottom: "1px solid var(--border)" }}>
+                <li key={item.title} className="flex gap-4 py-5 -mx-3 px-3 rounded-xl transition-colors hover:bg-[var(--bg-elevated)]" style={{ borderBottom: "1px solid var(--border)" }}>
                   <div className="w-9 h-9 rounded-lg shrink-0 flex items-center justify-center text-[17px]"
                     style={{ border: "1px solid var(--border-strong)", color: "var(--text-2)", background: "rgba(255,255,255,0.03)" }}>
                     {item.icon}

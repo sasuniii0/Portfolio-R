@@ -65,8 +65,8 @@ const BlogExploring: React.FC = () => {
         <SectionHeader
           num="06"
           label="Writing"
-          title="Thoughts & explorations."
-          lead="Insights, tutorials and experiments on AI, ML, software development and where technology is heading."
+          title={<>Notes on the <span className="l-em">craft.</span></>}
+          lead="Essays and tutorials on software, AI, and what I'm learning — the same writing, on Medium."
           aside={
             <a href={MEDIUM_URL} target="_blank" rel="noopener noreferrer" className="l-btn l-btn-secondary">
               <RiQuillPenLine /> Read on Medium <HiArrowUpRight />
@@ -120,7 +120,7 @@ const BlogExploring: React.FC = () => {
                         </React.Fragment>
                       ))}
                     </div>
-                    <h3 className="text-[17px] font-medium leading-snug tracking-[-0.015em] line-clamp-2" style={{ color: "var(--text-1)" }}>
+                    <h3 className="l-card-title text-[17px] font-medium leading-snug tracking-[-0.015em] line-clamp-2" style={{ color: "var(--text-1)" }}>
                       {article.title}
                     </h3>
                     <p className="text-[14px] leading-relaxed line-clamp-3" style={{ color: "var(--text-3)" }}>

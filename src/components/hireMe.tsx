@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import resume from "../assets/SasuniWIjerathne_CV (3).pdf";
 import { RiMailLine, RiMapPinLine, RiTimeLine, RiCheckboxCircleLine, RiErrorWarningLine, RiLoader4Line } from "react-icons/ri";
+import { FaGithub, FaLinkedin, FaMedium } from "react-icons/fa";
 import { HiArrowRight, HiArrowUpRight } from "react-icons/hi2";
 import { Reveal } from "./ui";
+
+const socials = [
+  { icon: <FaLinkedin />, href: "https://www.linkedin.com/in/sasuni-wijerathne-a3b517311", label: "LinkedIn" },
+  { icon: <FaGithub />,   href: "https://github.com/sasuniii0",                             label: "GitHub" },
+  { icon: <FaMedium />,   href: "https://medium.com/@sasuniwijerathne",                     label: "Medium" },
+];
 
 const details = [
   { icon: <RiMailLine />,   label: "Email",    value: "sasuniwijerathne@gmail.com", href: "mailto:sasuniwijerathne@gmail.com" },
@@ -41,7 +48,7 @@ const HireMe = () => {
     <section id="hireme" className="l-section overflow-hidden">
       {/* soft top glow */}
       <div className="absolute inset-x-0 top-0 h-[420px] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 50% 70% at 50% 0%, rgba(113,112,255,0.14), transparent 70%)" }} />
+        style={{ background: "radial-gradient(ellipse 50% 70% at 50% 0%, rgba(198,163,106,0.12), transparent 70%)" }} />
 
       <div className="l-container relative">
         <Reveal className="text-center max-w-2xl mx-auto mb-16">
@@ -49,9 +56,9 @@ const HireMe = () => {
             <span className="l-eyebrow-num">07</span>
             <span>Contact</span>
           </p>
-          <h2 className="l-h2 l-gradient-text">Let's build something together.</h2>
+          <h2 className="l-h2">Let's talk about the <span className="l-em">work.</span></h2>
           <p className="l-lead mt-5">
-            Have a project, a role, or just an idea worth exploring? Send a message — I'd love to hear from you.
+            A role, a collaboration, or a question. Send a note and I'll reply.
           </p>
         </Reveal>
 
@@ -74,6 +81,14 @@ const HireMe = () => {
                   </div>
                 </div>
               ))}
+              <div className="flex items-center gap-1 px-3 py-2" style={{ borderTop: "1px solid var(--border)" }}>
+                {socials.map(s => (
+                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
+                    className="l-btn l-btn-ghost !w-9 !h-9 !p-0 text-base">
+                    {s.icon}
+                  </a>
+                ))}
+              </div>
               <div className="mt-auto p-4 flex flex-col sm:flex-row md:flex-col lg:flex-row gap-2">
                 <a href={resume} target="_blank" rel="noopener noreferrer" className="l-btn l-btn-sm l-btn-secondary flex-1">
                   Download resume <HiArrowUpRight />

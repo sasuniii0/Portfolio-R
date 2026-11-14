@@ -6,10 +6,11 @@ import resume from "../assets/SasuniWIjerathne_CV (3).pdf";
 const navLinks = [
   { label: "About",      href: "#about" },
   { label: "Experience", href: "#experience" },
-  { label: "Services", href: "#services" },
-  { label: "Skills",   href: "#skills-education" },
-  { label: "Projects", href: "#projects" },
-  { label: "Blog",     href: "#blog" },
+  { label: "Services",   href: "#services" },
+  { label: "Skills",     href: "#skills-education" },
+  { label: "Projects",   href: "#projects" },
+  { label: "Blog",       href: "#blog" },
+  { label: "Contact",    href: "#hireme" },
 ];
 
 const Navbar: React.FC = () => {
@@ -51,7 +52,7 @@ const Navbar: React.FC = () => {
     <header
       className="fixed top-0 left-0 w-full z-50 transition-colors duration-300"
       style={{
-        background: scrolled || menuOpen ? "rgba(8,9,10,0.8)" : "transparent",
+        background: scrolled || menuOpen ? "rgba(8,12,20,0.82)" : "transparent",
         backdropFilter: scrolled || menuOpen ? "blur(20px) saturate(180%)" : "none",
         WebkitBackdropFilter: scrolled || menuOpen ? "blur(20px) saturate(180%)" : "none",
         borderBottom: `1px solid ${scrolled || menuOpen ? "var(--border)" : "transparent"}`,
@@ -60,7 +61,8 @@ const Navbar: React.FC = () => {
       <nav className="l-container flex items-center justify-between h-16">
 
         {/* ── Logo ── */}
-        <a href="#home" className="flex items-center gap-2.5" onClick={() => setMenuOpen(false)}>
+        <a href="#content" className="l-skip">Skip to content</a>
+        <a href="#home" className="flex items-center gap-2.5 shrink-0" onClick={() => setMenuOpen(false)}>
           <img src={logo} alt="" className="w-6 h-6 rounded-md" />
           <span className="text-[15px] font-semibold tracking-[-0.01em]" style={{ color: "var(--text-1)" }}>
             Sasuni
@@ -73,10 +75,10 @@ const Navbar: React.FC = () => {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="px-3 py-1.5 rounded-lg text-[13.5px] transition-colors duration-150"
-                style={{ color: active === link.href ? "var(--text-1)" : "var(--text-3)" }}
+                className="relative px-2.5 py-1.5 rounded-lg text-[13px] transition-colors duration-150"
+                style={{ color: active === link.href ? "var(--accent-hi)" : "var(--text-3)" }}
                 onMouseEnter={e => (e.currentTarget.style.color = "var(--text-1)")}
-                onMouseLeave={e => (e.currentTarget.style.color = active === link.href ? "var(--text-1)" : "var(--text-3)")}
+                onMouseLeave={e => (e.currentTarget.style.color = active === link.href ? "var(--accent-hi)" : "var(--text-3)")}
               >
                 {link.label}
               </a>
@@ -98,9 +100,11 @@ const Navbar: React.FC = () => {
         <button
           className="lg:hidden relative w-9 h-9 flex items-center justify-center rounded-lg"
           style={{ color: "var(--text-2)" }}
+          type="button"
           onClick={() => setMenuOpen(p => !p)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
         >
           {[0, 1].map(i => (
             <motion.span
@@ -124,10 +128,11 @@ const Navbar: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden fixed inset-x-0 top-16 bottom-0"
+            id="mobile-nav"
+            className="lg:hidden fixed inset-x-0 top-16 bottom-0 overflow-y-auto"
             style={{ background: "var(--bg)" }}
           >
-            <div className="l-container flex flex-col pt-4">
+            <div className="l-container flex flex-col pt-4 pb-10">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}

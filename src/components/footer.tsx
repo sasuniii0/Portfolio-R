@@ -7,11 +7,12 @@ const columns = [
     title: "Navigate",
     links: [
       { label: "About",      href: "#about" },
-  { label: "Experience", href: "#experience" },
-      { label: "Services", href: "#services" },
-      { label: "Skills",   href: "#skills-education" },
-      { label: "Projects", href: "#projects" },
-      { label: "Blog",     href: "#blog" },
+      { label: "Experience", href: "#experience" },
+      { label: "Services",   href: "#services" },
+      { label: "Skills",     href: "#skills-education" },
+      { label: "Projects",   href: "#projects" },
+      { label: "Blog",       href: "#blog" },
+      { label: "Contact",    href: "#hireme" },
     ],
   },
   {
@@ -57,7 +58,7 @@ const Footer = () => {
               <span className="text-[15px] font-semibold" style={{ color: "var(--text-1)" }}>Sasuni Wijerathne</span>
             </a>
             <p className="text-[13.5px] leading-relaxed" style={{ color: "var(--text-3)" }}>
-              Software engineer · AI & ML enthusiast · writer. Get the latest on AI, ML and software development.
+              Junior Software Engineer at PayMedia. Java, Spring Boot, and full-stack systems for digital finance.
             </p>
             {subDone ? (
               <p className="flex items-center gap-2 text-[13.5px]" style={{ color: "var(--green)" }}>

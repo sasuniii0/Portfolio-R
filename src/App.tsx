@@ -15,15 +15,17 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen overflow-x-clip">
       <Navbar />
-      <Hero />
-      <AboutMe />
-      <Experience />
-      <Services/>
-      <SkillsEducation />
-      <Projects />
-      <BlogExploring/>
-      <HireMe />
-      <Footer/>
+      <main id="content">
+        <Hero />
+        <AboutMe />
+        <Experience />
+        <Services />
+        <SkillsEducation />
+        <Projects />
+        <BlogExploring />
+        <HireMe />
+      </main>
+      <Footer />
     </div>
   );
 };
