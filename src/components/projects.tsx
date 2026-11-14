@@ -166,7 +166,7 @@ const TypeBadge: React.FC<{ project: Project }> = ({ project }) => (
 const ProjectLinks: React.FC<{ project: Project }> = ({ project }) => (
   <div className="flex items-center gap-2">
     <a href={project.github} target="_blank" rel="noopener noreferrer" className="l-btn l-btn-sm l-btn-secondary">
-      <RiGithubLine /> Code
+      <RiGithubLine /> GitHub
     </a>
     {project.live && (
       <a href={project.live} target="_blank" rel="noopener noreferrer" className="l-btn l-btn-sm l-btn-primary">
@@ -185,12 +185,12 @@ const FeaturedProjectCard: React.FC<{ project: Project }> = ({ project }) => (
       <div className="p-8 md:p-10 flex flex-col gap-6">
         <div className="flex items-center gap-2">
           <TypeBadge project={project} />
-          <span className="l-pill" style={{ color: "var(--accent-hi)", borderColor: "rgba(113,112,255,0.3)", background: "var(--accent-soft)" }}>
+          <span className="l-pill" style={{ color: "var(--accent-hi)", borderColor: "rgba(198,163,106,0.4)", background: "var(--accent-soft)" }}>
             Featured
           </span>
         </div>
         <div>
-          <h3 className="text-2xl md:text-[28px] font-semibold tracking-[-0.025em] leading-tight" style={{ color: "var(--text-1)" }}>
+          <h3 className="l-card-title l-serif text-[2.15rem] leading-none tracking-[-0.025em]" style={{ color: "var(--text-1)" }}>
             {project.title}
           </h3>
           <p className="text-[15px] mt-1.5" style={{ color: "var(--text-3)" }}>{project.subtitle}</p>
@@ -206,7 +206,7 @@ const FeaturedProjectCard: React.FC<{ project: Project }> = ({ project }) => (
       <div className="relative p-8 md:p-10 flex items-center overflow-hidden border-t lg:border-t-0 lg:border-l"
         style={{ background: "var(--bg-elevated)", borderColor: "var(--border)" }}>
         <div className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 80% 60% at 100% 0%, rgba(113,112,255,0.12), transparent 70%)" }} />
+          style={{ background: "radial-gradient(ellipse 80% 60% at 100% 0%, rgba(198,163,106,0.14), transparent 70%)" }} />
         <div className="relative w-full rounded-xl overflow-hidden"
           style={{ border: "1px solid var(--border)", background: "var(--bg)" }}>
           <div className="flex items-center justify-between px-4 h-10" style={{ borderBottom: "1px solid var(--border)" }}>
@@ -214,7 +214,7 @@ const FeaturedProjectCard: React.FC<{ project: Project }> = ({ project }) => (
             <span className="l-mono text-[11px]" style={{ color: "var(--text-4)" }}>{project.id}</span>
           </div>
           <div className="px-4 py-6 text-center" style={{ borderBottom: "1px solid var(--border)" }}>
-            <p className="text-5xl font-semibold tracking-[-0.04em] l-gradient-text">{project.spec.metric}</p>
+            <p className="l-serif text-5xl tracking-[-0.04em]" style={{ color: "var(--text-1)" }}>{project.spec.metric}</p>
             <p className="text-[13px] mt-2" style={{ color: "var(--text-3)" }}>{project.spec.metricLabel}</p>
           </div>
           <ul>
@@ -242,7 +242,7 @@ const SmallProjectCard: React.FC<{ project: Project; delay: number }> = ({ proje
         <span className="l-mono text-[11px]" style={{ color: "var(--text-4)" }}>{project.id}</span>
       </div>
       <div>
-        <h3 className="text-xl font-semibold tracking-[-0.02em]" style={{ color: "var(--text-1)" }}>{project.title}</h3>
+        <h3 className="l-card-title l-serif text-[1.85rem] leading-none tracking-[-0.02em]" style={{ color: "var(--text-1)" }}>{project.title}</h3>
         <p className="text-[14px] mt-1" style={{ color: "var(--text-3)" }}>{project.subtitle}</p>
       </div>
       <p className="l-body">{project.description}</p>
@@ -275,8 +275,8 @@ const Projects: React.FC = () => {
         <SectionHeader
           num="05"
           label="Projects"
-          title="Selected work."
-          lead="Cloud-native microservices, secure backends, AI/ML and mobile — built end to end."
+          title={<>Selected <span className="l-em">work.</span></>}
+          lead="Cloud-native microservices, secure backends, AI/ML, and mobile — the same projects, with the code one click away."
           aside={
             <a href={GH} target="_blank" rel="noopener noreferrer" className="l-btn l-btn-secondary">
               <RiGithubLine /> View all on GitHub <HiArrowUpRight />

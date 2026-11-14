@@ -1,4 +1,3 @@
-import profilePic from "../assets/WhatsApp Image 2026-09-28 at 23.43.02.jpeg";
 import resume from "../assets/SasuniWIjerathne_CV (3).pdf";
 import { FaGithub, FaLinkedin, FaInstagram, FaMedium, FaFacebook } from "react-icons/fa";
 import { HiArrowRight, HiArrowUpRight } from "react-icons/hi2";
@@ -26,40 +25,27 @@ const AboutMe = () => (
       <SectionHeader
         num="01"
         label="About"
-        title={<>Engineer, writer,<br className="hidden sm:block" /> lifelong learner.</>}
+        title={<>Software engineering, <span className="l-em">practiced in fintech.</span></>}
       />
 
-      <div className="grid md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-10 md:gap-16 items-start">
-
-        {/* ── Portrait card ── */}
+      <div className="flex flex-col gap-8 max-w-3xl">
         <Reveal>
-          <div className="l-card p-2 max-w-sm mx-auto md:mx-0">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[10px]">
-              <img src={profilePic} alt="Sasuni Wijerathne" className="w-full h-full object-cover" />
-              <div className="absolute inset-0"
-                style={{ background: "linear-gradient(to top, rgba(8,9,10,0.85) 0%, transparent 45%)" }} />
-              <div className="absolute bottom-0 inset-x-0 p-4 flex items-end justify-between">
-                <div>
-                  <p className="text-[15px] font-medium" style={{ color: "var(--text-1)" }}>Sasuni Wijerathne</p>
-                  <p className="flex items-center gap-1 text-[13px] mt-0.5" style={{ color: "var(--text-3)" }}>
-                    <RiMapPinLine /> Colombo, Sri Lanka
-                  </p>
-                </div>
-                <span className="l-pill" style={{ background: "rgba(8,9,10,0.6)", backdropFilter: "blur(8px)" }}>
-                  <span className="l-status-dot !w-1.5 !h-1.5" /> Available
-                </span>
-              </div>
-            </div>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <span className="l-pill">
+              <span className="l-status-dot !w-1.5 !h-1.5" /> Available
+            </span>
+            <p className="flex items-center gap-1.5 text-[14px]" style={{ color: "var(--text-3)" }}>
+              <RiMapPinLine aria-hidden /> Junior Software Engineer · PayMedia, Colombo
+            </p>
           </div>
         </Reveal>
 
-        {/* ── Bio ── */}
         <div className="flex flex-col gap-8">
           <Reveal delay={0.1}>
             <p className="text-lg leading-relaxed tracking-[-0.011em]" style={{ color: "var(--text-2)" }}>
-              I'm a software engineer interning at PayMedia, a Sri Lankan fintech company building digital
-              banking and payment software. I work across the stack — from Spring Boot microservices and
-              cloud deployments to React and React Native interfaces — with a growing focus on AI and machine learning.
+              I'm a Junior Software Engineer at PayMedia, a Sri Lankan fintech company building digital
+              banking and payment software. I work across the stack — Java and Spring Boot services,
+              REST APIs, and React interfaces — on systems that have to stay secure and reliable.
             </p>
             <p className="l-body mt-4">
               I'm studying software engineering at IJSE, where I also serve as Secretary of the student committee.
@@ -72,7 +58,7 @@ const AboutMe = () => (
             <div className="l-grid grid-cols-2 sm:grid-cols-4">
               {stats.map(s => (
                 <div key={s.label} className="px-5 py-5">
-                  <p className="text-[28px] font-semibold tracking-[-0.03em] l-gradient-text">{s.val}</p>
+                  <p className="l-serif text-[2rem] leading-none tracking-[-0.03em]" style={{ color: "var(--text-1)" }}>{s.val}</p>
                   <p className="text-[13px] mt-1" style={{ color: "var(--text-3)" }}>{s.label}</p>
                 </div>
               ))}

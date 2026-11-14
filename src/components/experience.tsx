@@ -20,18 +20,18 @@ interface Role {
 const EXPERIENCE: Role[] = [
   {
     company:  "PayMedia",
-    title:    "Software Engineer Intern",
-    type:     "Internship · 6 months",
-    industry: "Fintech · Colombo",
+    title:    "Junior Software Engineer",
+    type:     "Digital financial services",
+    industry: "FinTech · Colombo",
     period:   "Present",
     current:  true,
     summary:
-      "Engineering in fintech at PayMedia — an award-winning Sri Lankan company building digital banking and payment software for banks and financial institutions, where security, compliance and performance come first.",
+      "Junior Software Engineer at PayMedia, an award-winning Sri Lankan fintech company building digital banking and payment software for banks and financial institutions. I contribute on the enterprise backend of those products, where security, compliance, and performance come first.",
     highlights: [
-      "Building software for the banking domain",
-      "Security- and compliance-first engineering",
-      "Working in an agile product team",
-      "Collaborating through code reviews",
+      "Enterprise backend development for digital financial services",
+      "Security- and compliance-conscious engineering",
+      "Delivery inside an agile product team",
+      "Collaboration through code review",
     ],
     domain: {
       label: "What PayMedia builds",
@@ -44,9 +44,9 @@ const EXPERIENCE: Role[] = [
 const CompanyMark: React.FC<{ name: string }> = ({ name }) => (
   <div className="w-11 h-11 rounded-xl shrink-0 flex items-center justify-center text-[17px] font-semibold"
     style={{
-      color: "#fff",
-      background: "linear-gradient(135deg, #8b8cff 0%, #5e6ad2 55%, #3c3f9e 100%)",
-      boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.18)",
+      color: "#1a140c",
+      background: "linear-gradient(160deg, #f0e2c8 0%, #c6a36a 55%, #8d6a3a 100%)",
+      boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.28)",
     }}>
     {name.charAt(0)}
   </div>
@@ -58,77 +58,78 @@ const Experience: React.FC = () => (
       <SectionHeader
         num="02"
         label="Experience"
-        title="Where I'm building."
-        lead="Hands-on industry experience in fintech, applying what I learn to software that banks and their customers rely on."
+        title={<>Where the work <span className="l-em">happens.</span></>}
+        lead="Industry experience in digital financial services — enterprise backend work where security and reliability come first. Client and project details stay private."
       />
 
-      <div className="flex flex-col gap-4">
+      <ol className="l-timeline flex flex-col gap-6">
         {EXPERIENCE.map((role, i) => (
-          <Reveal key={role.company + role.title} delay={i * 0.08}>
-            <article className="l-card l-card-hover grid md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] overflow-hidden">
+            <li key={role.company + role.title} className="relative">
+              <span className="l-timeline-dot" aria-hidden />
+              <Reveal delay={i * 0.08}>
+              <article className="l-card l-card-hover grid md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] overflow-hidden">
 
-              {/* ── Meta column ── */}
-              <div className="p-8 flex flex-col gap-5 border-b md:border-b-0 md:border-r"
-                style={{ borderColor: "var(--border)", background: "var(--bg-elevated)" }}>
-                <div className="flex items-center gap-3">
-                  <CompanyMark name={role.company} />
-                  <div>
-                    <p className="text-[17px] font-semibold tracking-[-0.015em]" style={{ color: "var(--text-1)" }}>{role.company}</p>
-                    <p className="flex items-center gap-1.5 text-[13px]" style={{ color: "var(--text-3)" }}>
-                      <RiBriefcase4Line /> {role.type}
-                    </p>
-                    {role.industry && (
-                      <p className="flex items-center gap-1.5 text-[13px] mt-0.5" style={{ color: "var(--text-3)" }}>
-                        <RiBankLine /> {role.industry}
+                <div className="p-7 md:p-8 flex flex-col gap-5 border-b md:border-b-0 md:border-r"
+                  style={{ borderColor: "var(--border)", background: "var(--bg-elevated)" }}>
+                  <div className="flex items-center gap-3">
+                    <CompanyMark name={role.company} />
+                    <div>
+                      <p className="text-[17px] font-semibold tracking-[-0.015em]" style={{ color: "var(--text-1)" }}>{role.company}</p>
+                      <p className="flex items-center gap-1.5 text-[13px]" style={{ color: "var(--text-3)" }}>
+                        <RiBriefcase4Line aria-hidden /> {role.type}
                       </p>
-                    )}
-                  </div>
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  {role.current ? (
-                    <span className="l-pill">
-                      <span className="l-status-dot !w-1.5 !h-1.5" /> Current role
-                    </span>
-                  ) : (
-                    <span className="l-pill">Completed</span>
-                  )}
-                  <span className="l-mono text-[12px]" style={{ color: "var(--text-4)" }}>{role.period}</span>
-                </div>
-              </div>
-
-              {/* ── Detail column ── */}
-              <div className="p-8 flex flex-col gap-5">
-                <div>
-                  <h3 className="text-xl md:text-2xl font-semibold tracking-[-0.02em]" style={{ color: "var(--text-1)" }}>
-                    {role.title}
-                  </h3>
-                  <p className="l-body mt-2">{role.summary}</p>
-                </div>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
-                  {role.highlights.map(h => (
-                    <li key={h} className="flex items-center gap-2.5 text-[14px]" style={{ color: "var(--text-2)" }}>
-                      <RiCheckLine className="shrink-0" style={{ color: "var(--accent-hi)" }} /> {h}
-                    </li>
-                  ))}
-                </ul>
-                {role.domain && (
-                  <div className="pt-5" style={{ borderTop: "1px solid var(--border)" }}>
-                    <p className="text-[12.5px] mb-2.5" style={{ color: "var(--text-4)" }}>{role.domain.label}</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {role.domain.items.map(item => <span key={item} className="l-tag">{item}</span>)}
+                      {role.industry && (
+                        <p className="flex items-center gap-1.5 text-[13px] mt-0.5" style={{ color: "var(--text-3)" }}>
+                          <RiBankLine aria-hidden /> {role.industry}
+                        </p>
+                      )}
                     </div>
                   </div>
-                )}
-                {role.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5">
-                    {role.tags.map(tag => <span key={tag} className="l-tag">{tag}</span>)}
+                  <div className="flex flex-wrap items-center gap-2">
+                    {role.current ? (
+                      <span className="l-pill">
+                        <span className="l-status-dot !w-1.5 !h-1.5" /> Current role
+                      </span>
+                    ) : (
+                      <span className="l-pill">Completed</span>
+                    )}
+                    <span className="l-mono text-[12px]" style={{ color: "var(--text-4)" }}>{role.period}</span>
                   </div>
-                )}
-              </div>
-            </article>
-          </Reveal>
+                </div>
+
+                <div className="p-7 md:p-8 flex flex-col gap-5">
+                  <div>
+                    <h3 className="l-serif text-[1.85rem] leading-none tracking-[-0.02em]" style={{ color: "var(--text-1)" }}>
+                      {role.title}
+                    </h3>
+                    <p className="l-body mt-3">{role.summary}</p>
+                  </div>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
+                    {role.highlights.map(h => (
+                      <li key={h} className="flex items-start gap-2.5 text-[14px] leading-snug" style={{ color: "var(--text-2)" }}>
+                        <RiCheckLine className="shrink-0 mt-0.5" aria-hidden style={{ color: "var(--accent-hi)" }} /> {h}
+                      </li>
+                    ))}
+                  </ul>
+                  {role.domain && (
+                    <div className="pt-5" style={{ borderTop: "1px solid var(--border)" }}>
+                      <p className="text-[12.5px] mb-2.5" style={{ color: "var(--text-4)" }}>{role.domain.label}</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {role.domain.items.map(item => <span key={item} className="l-tag">{item}</span>)}
+                      </div>
+                    </div>
+                  )}
+                  {role.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {role.tags.map(tag => <span key={tag} className="l-tag">{tag}</span>)}
+                    </div>
+                  )}
+                </div>
+              </article>
+              </Reveal>
+            </li>
         ))}
-      </div>
+      </ol>
     </div>
   </section>
 );
